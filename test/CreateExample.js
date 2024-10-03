@@ -86,8 +86,8 @@ describe("CreateExample", function () {
       const receipt = await tx.wait();
 
       // Validate the new contract address
-      const log = receipt.logs[0]; // 获取第一个日志
-      const parsedLog = create2Example.interface.parseLog(log); // 解析日志，获取事件对象
+      const log = receipt.logs[0]; 
+      const parsedLog = create2Example.interface.parseLog(log);
 
       // Gain the new contract address from the event object
       const newContractAddress = parsedLog.args.newContract;
@@ -101,7 +101,7 @@ describe("CreateExample", function () {
       // Validate that the event was emitted and the correct contract address was returned
       await expect(tx)
         .to.emit(create2Example, "NewContractAddress")
-        .withArgs(newContractAddress); // 验证新合约地址
+        .withArgs(newContractAddress); 
 
       // Validate the value of the new contract
       const SimpleContract = await ethers.getContractFactory("SimpleContract");
@@ -124,7 +124,7 @@ describe("CreateExample", function () {
       // Predict the address of the contract that will be created using create2
       const predictedAddress = await create2Example.getCreate2Address(valueToSet, salt);
       console.log('Predicted contract address: ', predictedAddress);
-      
+
       // Check if the predicted address is a proper address
       expect(predictedAddress).to.properAddress;
     });
